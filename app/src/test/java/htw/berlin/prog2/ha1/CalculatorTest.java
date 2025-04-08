@@ -88,7 +88,22 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should switch sign of positive to negative and vice versa")
+    void testSwitchSign() {
+        Calculator calc = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+        calc.pressDigitKey(6);
+        calc.pressNegativeKey();
+
+        String expected = "-6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+
 }
 
