@@ -102,6 +102,41 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should round up after 8 decimal places")
+    void testRoundUp() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(1);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "1.56556699";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should correctly chain operations without pressing equals in between")
+    void testOperationChaining() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "21"; // (4 + 3) * 3 = 21
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 
 

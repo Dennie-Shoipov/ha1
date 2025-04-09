@@ -62,6 +62,8 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        //speichert das Zwischenergebnis nicht ab ohne =
+
     }
 
     /**
@@ -83,7 +85,7 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        //Aufrundung statt Abschneiden
     }
 
     /**
@@ -129,5 +131,6 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        //Aufrunden statt Abschneiden
     }
 }
