@@ -60,9 +60,12 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        if(!latestOperation.isEmpty()){
+            pressEqualsKey();
+        }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        //speichert das Zwischenergebnis nicht ab ohne =
 
     }
 
@@ -82,10 +85,15 @@ public class Calculator {
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+
+        if (!Double.isNaN(result)) {
+            result = Math.round(result * 100000000) / 100000000.0;
+        }
+
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-        //Aufrundung statt Abschneiden
+
     }
 
     /**

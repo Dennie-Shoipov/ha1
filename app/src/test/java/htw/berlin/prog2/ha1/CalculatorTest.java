@@ -132,7 +132,7 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
 
-        String expected = "21"; // (4 + 3) * 3 = 21
+        String expected = "21";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
