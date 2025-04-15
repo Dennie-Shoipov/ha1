@@ -103,18 +103,16 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should round up after 8 decimal places")
+    @DisplayName("should allow a maximum of 10 characters and round up")
     void testRoundUp() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(2);
-        calc.pressDotKey();
-        calc.pressDigitKey(4);
-        calc.pressDigitKey(5);
         calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(2);
         calc.pressUnaryOperationKey("√");
 
-        String expected = "1.56556699";
+        String expected = "11.045361";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -132,7 +130,7 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
 
-        String expected = "21";
+        String expected = "21"; // (4 + 3) * 3 = 21
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

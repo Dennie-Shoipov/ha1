@@ -1,4 +1,5 @@
 package htw.berlin.prog2.ha1;
+import java.util.Locale;
 
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
@@ -86,13 +87,27 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
 
-        if (!Double.isNaN(result)) {
-            result = Math.round(result * 100000000) / 100000000.0;
+        if (Double.isNaN(result) || Double.isInfinite(result)) {
+            screen = "Error";
+            return;
         }
 
-        screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        // Ermittle den ganzzahligen Teil des Ergebnisses
+        String intPart = Long.toString((long) result);
+        // Berechnung der Nachkommastellen - 10(max. Zeichen) - Ganzzahlstellen - 1(Dezimalpunkt)
+        int decimals = 10 - intPart.length() - 1;
+        if (decimals < 0) {
+            decimals = 0;
+        }
+
+        //Rundet korrekt auf die erlaubte Anzahl an Nachkommastellen
+        screen = String.format(Locale.US,"%." + decimals + "f", result);
+
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.endsWith("0")) screen = screen.substring(0,screen.length()-1);
+        if(screen.contains(".") && screen.length() > 10) screen = screen.substring(0, 10);
+
 
     }
 
@@ -138,7 +153,7 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if(screen.contains(".") && screen.length() > 10) screen = screen.substring(0, 10);
         //Aufrunden statt Abschneiden
     }
 }
